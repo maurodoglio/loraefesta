@@ -45,15 +45,16 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'loraefesta',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 ########## END DATABASE CONFIGURATION
+
 
 
 ########## GENERAL CONFIGURATION
@@ -61,7 +62,16 @@ DATABASES = {
 TIME_ZONE = 'America/Los_Angeles'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('it', gettext('Italian')),
+    ('en', gettext('English')),
+)
+
+
+
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -139,6 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    'sekizai.context_processors.sekizai',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
@@ -151,6 +162,14 @@ TEMPLATE_LOADERS = (
 TEMPLATE_DIRS = (
     normpath(join(SITE_ROOT, 'templates')),
 )
+
+CMS_TEMPLATES = (
+    ('base.html', gettext('default')),
+    ('2col.html', gettext('2 Column')),
+    ('3col.html', gettext('3 Column')),
+    ('extra.html', gettext('Some extra fancy template')),
+)
+
 ########## END TEMPLATE CONFIGURATION
 
 
@@ -158,12 +177,15 @@ TEMPLATE_DIRS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#middleware-classes
 MIDDLEWARE_CLASSES = (
     # Default Django middleware.
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'cms.middleware.multilingual.MultilingualURLMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -195,15 +217,28 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
+    'modeltranslation',
+    'cms', 
+    'mptt', 
+    'menus', 
+    'sekizai',
+    'django.contrib.messages',
+    'rosetta'
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'loraweb',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## END APP CONFIGURATION
+
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+ROSETTA_WSGI_AUTO_RELOAD = True
 
 
 ########## LOGGING CONFIGURATION
