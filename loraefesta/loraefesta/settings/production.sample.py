@@ -50,7 +50,20 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ########## END EMAIL CONFIGURATION
 
 ########## DATABASE CONFIGURATION
-DATABASES = {}
+DB_NAME = environ.get('LORAWEB_DB_NAME', '')
+DB_USER = environ.get('LORAWEB_DB_USER', '')
+DB_PASS = environ.get('LORAWEB_DB_PASS', '')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 ########## END DATABASE CONFIGURATION
 
 

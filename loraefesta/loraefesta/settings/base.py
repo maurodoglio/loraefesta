@@ -45,16 +45,15 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'loraefesta',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': '',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 ########## END DATABASE CONFIGURATION
-
 
 
 ########## GENERAL CONFIGURATION
@@ -69,8 +68,6 @@ LANGUAGES = (
     ('it', gettext('Italian')),
     ('en', gettext('English')),
 )
-
-
 
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
@@ -119,7 +116,7 @@ STATICFILES_FINDERS = (
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
-SECRET_KEY = r"c88r66qx*#21ih)hmjw#^1d$vf=bdk#)8ykih^r&5b*zm!v)0i"
+SECRET_KEY = r"super-secret-please-change-me"
 ########## END SECRET CONFIGURATION
 
 
@@ -218,9 +215,9 @@ THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
     'modeltranslation',
-    'cms', 
-    'mptt', 
-    'menus', 
+    'cms',
+    'mptt',
+    'menus',
     'sekizai',
     'django.contrib.messages',
     'rosetta'
